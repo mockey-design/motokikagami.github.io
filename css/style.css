@@ -142,7 +142,7 @@ h1, h2, h3, h4 {
   font-size: 1.15rem;
   font-weight: 400;
   color: var(--c-text);
-  letter-spacing: 0.15em;
+  letter-spacing: 0.02em;
   display: flex;        /* ← 追加 */
   align-items: center;  /* ← 追加 */
 }
@@ -412,6 +412,59 @@ h1, h2, h3, h4 {
   height: 1px;
   background: var(--c-border);
   margin-left: 1rem;
+}
+
+/* ---- Education ---- */
+.edu-list {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--c-border);
+  margin-bottom: 2rem;
+}
+
+.edu-item {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 1.5rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--c-border);
+  align-items: start;
+}
+
+.edu-period {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--c-gold);
+  padding-top: 0.2rem;
+}
+
+.edu-degree {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--c-white);
+  margin-bottom: 0.2rem;
+}
+
+.edu-school {
+  font-size: 0.9rem;
+  color: var(--c-text-muted);
+  margin-bottom: 0.2rem;
+}
+
+.edu-advisor {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  color: var(--c-text-dim);
+}
+
+@media (max-width: 640px) {
+  .edu-item {
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+  }
 }
 
 /* ---- Highlights Section ---- */
