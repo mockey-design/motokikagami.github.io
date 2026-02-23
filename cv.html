@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CV — Motoki Kagami</title>
+  <meta name="description" content="Curriculum Vitae of Motoki Kagami." />
+  <link rel="icon" href="cow_icon.png" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<nav class="nav" role="navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="cow_icon.png" alt="" class="nav-logo-icon" />
+      Motoki<span> Kagami</span>
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="publications.html">Publications</a></li>
+      <li><a href="cv.html">CV</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <button class="nav-menu-btn" id="nav-menu-btn" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<main class="cv-page">
+  <div class="container">
+
+    <div class="section-header fade-in" style="margin-bottom:2rem">
+      <span class="section-label">Academic</span>
+      <h1 class="section-title">Curriculum Vitae</h1>
+      <div class="section-divider" aria-hidden="true"></div>
+    </div>
+
+    <!-- Actions -->
+    <div class="cv-actions fade-in">
+      <p style="font-size:0.9rem;color:var(--c-text-muted);font-weight:300">
+        Updated March 2026
+      </p>
+      <a href="cv.pdf" download class="cv-download-btn" aria-label="Download CV as PDF">
+        <svg width="14" height="14" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <path d="M10 3v10M6 9l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M3 16h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        Download PDF
+      </a>
+    </div>
+
+    <!-- Desktop: embed -->
+    <div class="cv-embed-wrap fade-in">
+      <iframe
+        src="cv.pdf"
+        title="Curriculum Vitae of Motoki Kagami"
+        type="application/pdf"
+        aria-label="CV PDF viewer">
+      </iframe>
+      <!-- Mobile fallback -->
+      <div class="cv-mobile-msg">
+        <p>PDF viewer is not available on mobile.<br>Please download the CV to view it.</p>
+        <a href="cv.pdf" download class="cv-download-btn">
+          <svg width="14" height="14" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <path d="M10 3v10M6 9l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M3 16h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          Download CV
+        </a>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <p class="footer-copy">© 2026 Motoki Kagami</p>
+      <p class="footer-copy"><a href="index.html" style="color:inherit">← Back to Home</a></p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

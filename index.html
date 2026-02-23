@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Motoki Kagami | 3D UI Evaluation & Context-Adaptive XR</title>
+
+  <!-- Primary SEO -->
+  <meta
+    name="description"
+    content="Motoki Kagami — research interests in evaluating 3D user interfaces and designing context-adaptive interaction in XR based on user state and environment."
+  />
+
+  <!-- OGP -->
+  <meta property="og:title" content="Motoki Kagami | 3D UI Evaluation & Context-Adaptive XR" />
+  <meta
+    property="og:description"
+    content="Research interests in evaluating 3D user interfaces and designing context-adaptive interaction in XR, considering user state and environment."
+  />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://motokikagami.github.io/" />
+  <meta property="og:image" content="https://motokikagami.github.io/og.png" />
+  <meta property="og:site_name" content="Motoki Kagami" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Motoki Kagami | 3D UI & Context-Adaptive XR" />
+  <meta
+    name="twitter:description"
+    content="3D user interface evaluation and context-adaptive interaction in XR."
+  />
+  <meta name="twitter:image" content="https://motokikagami.github.io/og.png" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="cow_icon.png" />
+
+  <link rel="stylesheet" href="css/style.css" />
+
+  <style>
+    /* ---- Circular portrait ---- */
+    .hero-portrait-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .portrait-circle {
+      width: 350px;
+      height: 350px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid var(--c-border);
+      box-shadow:
+        0 0 0 5px rgba(201,168,76,0.10),
+        0 8px 32px rgba(0,0,0,0.45);
+      position: relative;
+      background: var(--c-surface);
+      flex-shrink: 0;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+
+    .portrait-circle:hover {
+      box-shadow:
+        0 0 0 5px rgba(201,168,76,0.25),
+        0 16px 48px rgba(0,0,0,0.55);
+      transform: translateY(-2px);
+    }
+
+    /* ベース顔写真 */
+    .portrait-base {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 20%;
+      display: block;
+    }
+
+    /* サイバーパンク overlay（マウス追従マスク） */
+    .portrait-cyber {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      -webkit-mask-image: radial-gradient(circle 100px at 50% 50%, black 20%, transparent 75%);
+              mask-image: radial-gradient(circle 100px at 50% 50%, black 20%, transparent 75%);
+    }
+
+    .portrait-cyber img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 20%;
+      display: block;
+    }
+
+    .portrait-circle:hover .portrait-cyber {
+      opacity: 1;
+    }
+
+    /* ホバー時に内側に青いグロー */
+    .portrait-circle::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      box-shadow: inset 0 0 0px rgba(0, 150, 255, 0.0);
+      transition: box-shadow 0.3s ease;
+      pointer-events: none;
+      z-index: 3;
+    }
+    .portrait-circle:hover::after {
+      box-shadow: inset 0 0 35px rgba(0, 150, 255, 0.30);
+    }
+
+    /* Placeholder（portrait.jpg 配置後は削除） */
+    .portrait-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, var(--c-bg-3) 0%, var(--c-surface) 100%);
+      padding: 1.5rem;
+    }
+
+    /* 名前バッジ */
+    .portrait-badge {
+      text-align: center;
+    }
+
+    .portrait-badge-name {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--c-white);
+      letter-spacing: 0.02em;
+      line-height: 1.3;
+    }
+
+    .portrait-badge-role {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--c-gold);
+      margin-top: 0.25rem;
+    }
+
+    .hero-visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @media (max-width: 900px) {
+      .portrait-circle {
+        width: 230px;
+        height: 230px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .portrait-circle { transition: none; }
+      .portrait-circle:hover { transform: none; }
+      .portrait-cyber { transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- =============== NAV =============== -->
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="cow_icon.png" alt="" class="nav-logo-icon" />
+      Motoki&nbsp;<span>Kagami</span>
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="publications.html">Publications</a></li>
+      <li><a href="cv.html">CV</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <button class="nav-menu-btn" id="nav-menu-btn" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- =============== HERO =============== -->
+<section class="hero" aria-label="Introduction">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="container">
+    <div class="hero-grid">
+
+      <!-- LEFT: Text -->
+      <div class="hero-text">
+        <p class="hero-eyebrow fade-in">XR/HCI · 3D User Interfaces</p>
+        <h1 class="hero-name fade-in">Motoki Kagami</h1>
+        <p class="hero-affil fade-in">Nara Institute of Science and Technology (NAIST) <br> PhD Student</p>
+
+        <p class="hero-summary fade-in">
+          I'm interested in evaluating 3D user interfaces and understanding what makes them effective in real use.
+          Recently, I've been focusing on context-adaptive 3D interaction in XR—interfaces that adjust to user state
+          and the surrounding environment to remain reliable, efficient, and comfortable across changing situations.
+        </p>
+
+        <!-- CTA -->
+        <div class="hero-cta fade-in">
+          <a href="mailto:kagami.motoki.ki3@naist.ac.jp" class="cta-primary">
+            <svg width="14" height="14" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <rect x="1" y="4" width="18" height="13" rx="2" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M1 7l9 6 9-6" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+            Get in touch
+          </a>
+          <div class="cta-secondary">
+            <a href="https://scholar.google.com/citations?user=yOV3dOUAAAAJ&hl=ja" target="_blank" rel="noopener" class="cta-link">
+              <svg width="14" height="14" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-width="1.4"/>
+                <path d="M10 5a5 5 0 0 1 0 10M10 5a5 5 0 0 0 0 10M2 10h16" stroke="currentColor" stroke-width="1.2"/>
+              </svg>
+              Google Scholar
+            </a>
+            <a href="https://www.linkedin.com/in/motoki-kagami-630957177/" target="_blank" rel="noopener" class="cta-link">
+              <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.779 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 1 1 0-3.097 1.548 1.548 0 0 1 0 3.097zm1.337 9.763H3.667v-8.59h2.675v8.59zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34c.734 0 1.332-.582 1.332-1.299V2.298C19 1.581 18.402 1 17.668 1z"/>
+              </svg>
+              LinkedIn
+            </a>
+            <a href="publications.html" class="cta-link">
+              <svg width="14" height="14" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <path d="M4 4h12v12H4zM4 8h12M8 8v8" stroke="currentColor" stroke-width="1.3"/>
+              </svg>
+              Publications
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Portrait photo (circular) -->
+      <div class="hero-visual fade-in">
+        <div class="hero-portrait-wrap">
+          <div class="portrait-circle" id="portrait-circle">
+
+            <!-- ベース顔写真 (portrait.jpg をルートに配置) -->
+            <img
+              class="portrait-base"
+              src="portrait.jpg"
+              alt="Motoki Kagami"
+              loading="eager"
+            />
+
+            <!-- サイバーパンク overlay -->
+            <div class="portrait-cyber" id="portrait-cyber" aria-hidden="true">
+              <img src="cyberpank.png" alt="" loading="lazy" />
+            </div>
+
+          </div>
+
+          
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- =============== HIGHLIGHTS =============== -->
+<section class="highlights" aria-labelledby="highlights-title">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-label">Selected Work</span>
+      <h2 class="section-title" id="highlights-title">Research Highlights</h2>
+      <div class="section-divider" aria-hidden="true"></div>
+    </div>
+    <div class="highlight-grid" id="highlights-grid" role="list">
+      <!-- Dynamically rendered by home.js -->
+    </div>
+    <div style="text-align:right;margin-top:2rem;" class="fade-in">
+      <a href="publications.html" class="cta-link" style="font-size:0.75rem">
+        All publications →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- =============== MODAL =============== -->
+<div id="modal-overlay" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Publication details">
+  <div id="modal" class="modal">
+    <!-- Filled by JS -->
+  </div>
+</div>
+
+<!-- =============== FOOTER =============== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <p class="footer-copy">© 2026 Motoki Kagami</p>
+      <p class="footer-copy">
+        <a href="mailto:kagami.motoki.ki3@naist.ac.jp" style="color:inherit;border-bottom:1px solid var(--c-border)">
+          kagami.motoki.ki3@naist.ac.jp
+        </a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<!-- =============== SCRIPTS =============== -->
+<script>
+  const SITE_CONFIG = {
+    name: "Motoki Kagami",
+    affiliation: "Nara Institute of Science and Technology (NAIST)",
+    email: "kagami.motoki.ki3@naist.ac.jp",
+    scholar: "https://scholar.google.com/citations?user=yOV3dOUAAAAJ&hl=ja",
+    linkedin: "https://www.linkedin.com/in/motoki-kagami-630957177/",
+    twitter: "https://x.com/aizu_love_1901",
+    siteUrl: "https://motokikagami.github.io/",
+    ogImage: "https://motokikagami.github.io/og.png",
+  };
+</script>
+
+<script>
+  fetch('data/publications.json')
+    .then(r => r.json())
+    .then(data => {
+      window.PUBLICATIONS = data;
+      document.dispatchEvent(new Event('publications-loaded'));
+    })
+    .catch(() => {
+      document.dispatchEvent(new Event('publications-loaded'));
+    });
+</script>
+
+<script src="js/main.js"></script>
+<script src="js/home.js"></script>
+
+<script>
+  document.addEventListener('publications-loaded', () => {
+    if (typeof renderHighlights === 'function') renderHighlights();
+  });
+</script>
+
+<!-- サイバーパンク hover エフェクト -->
+<script>
+  (function () {
+    const circle = document.getElementById('portrait-circle');
+    const cyber  = document.getElementById('portrait-cyber');
+    if (!circle || !cyber) return;
+
+    // prefers-reduced-motion ならエフェクトなし
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    // ---- チューニング用パラメーター ----
+    const RADIUS    = 200;  // 見える円の半径(px)。大きくすると広く見える
+    const HARD_STOP =  20;  // くっきり見える中心部(%。小さいほど芯がシャープ)
+    const SOFT_STOP =  75;  // ぼかしが消えるまでの範囲(%)
+    // ------------------------------------
+
+    circle.addEventListener('mousemove', (e) => {
+      const rect = circle.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width  * 100).toFixed(2);
+      const y = ((e.clientY - rect.top)  / rect.height * 100).toFixed(2);
+
+      const mask =
+        `radial-gradient(circle ${RADIUS}px at ${x}% ${y}%, black ${HARD_STOP}%, transparent ${SOFT_STOP}%)`;
+      cyber.style.webkitMaskImage = mask;
+      cyber.style.maskImage       = mask;
+    });
+
+    circle.addEventListener('mouseenter', () => {
+      cyber.style.opacity = '1';
+    });
+
+    circle.addEventListener('mouseleave', () => {
+      cyber.style.opacity = '0';
+    });
+  })();
+</script>
+
+</body>
+</html>

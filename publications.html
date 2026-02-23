@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Publications — Motoki Kagami</title>
+  <meta property="og:title" content="Publications — Motoki Kagami" />
+  <meta property="og:type" content="website" />
+  <meta name="description" content="Full list of publications by Motoki Kagami." />
+  <link rel="icon" href="cow_icon.png" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<nav class="nav" role="navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="cow_icon.png" alt="" class="nav-logo-icon" />
+      Motoki&nbsp;<span>Kagami</span>
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="publications.html">Publications</a></li>
+      <li><a href="cv.html">CV</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <button class="nav-menu-btn" id="nav-menu-btn" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<main class="pub-page">
+  <div class="container">
+
+    <div class="section-header fade-in" style="margin-bottom:3.5rem">
+      <span class="section-label">Research</span>
+      <h1 class="section-title">Publications</h1>
+      <div class="section-divider" aria-hidden="true"></div>
+    </div>
+
+    <div id="pub-list">
+      <!-- Rendered by publications.js -->
+      <div style="color:var(--c-text-dim);font-family:var(--font-mono);font-size:0.8rem;padding:2rem 0">
+        Loading publications…
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- Modal (for BibTeX inline display if needed) -->
+<div id="modal-overlay" class="modal-overlay" role="dialog" aria-modal="true">
+  <div id="modal" class="modal"></div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <p class="footer-copy">© 2026 Motoki Kagami</p>
+      <p class="footer-copy"><a href="index.html" style="color:inherit">← Back to Home</a></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const SITE_CONFIG = { name: "Motoki Kagami" };
+</script>
+<script>
+  fetch('data/publications.json')
+    .then(r => r.json())
+    .then(data => {
+      window.PUBLICATIONS = data;
+      document.dispatchEvent(new Event('publications-loaded'));
+    });
+</script>
+<script src="js/main.js"></script>
+<script src="js/publications.js"></script>
+<script>
+  document.addEventListener('publications-loaded', () => {
+    renderPublications();
+  });
+</script>
+</body>
+</html>

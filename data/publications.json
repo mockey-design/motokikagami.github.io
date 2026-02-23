@@ -1,0 +1,58 @@
+[
+   {
+    "id": "p001",
+    "teaser": "images/teaser/p001.jpg",
+    "title": "Tag-Along Virtual Windows Increase Perceived Resistance and Task Load in Augmented Reality",
+    "authors": [
+      "Motoki Kagami",
+      "Yuta Kataoka",
+      "Yutaro Hirao",
+      "Monica Perusquia-Hernandez",
+      "Satoshi Hashiguchi",
+      "Hideaki Uchiyama",
+      "Kiyoshi Kiyokawa",
+      "Shohei Mori"
+    ],
+    "venue": "IEEE TVCG (IEEE VR 2026 Special Issue)",
+    "year": 2026,
+    "pdf": null,
+    "doi": null,
+    "bibtex": "@article{kagami2026tagalong,\n  title={Tag-Along Virtual Windows Increase Perceived Resistance and Task Load in Augmented Reality},\n  author={Kagami, Motoki and Kataoka, Yuta and Hirao, Yutaro and Perusquia-Hernandez, Monica and Hashiguchi, Satoshi and Uchiyama, Hideaki and Kiyokawa, Kiyoshi and Mori, Shohei},\n  journal={IEEE Transactions on Visualization and Computer Graphics},\n  note={IEEE VR 2026 Special Issue},\n  year={2026}\n}",
+    "highlight": true,
+    "mini_abstract": "We show that head-following (Tag-Along) AR windows systematically amplify pseudo-haptic resistance and increase perceived workload compared to a fixed (Head-Locked) baseline.",
+    "abstract": "Head-following virtual windows can keep content within view in augmented reality (AR), but their motion may introduce a pseudo-haptic sense of resistance during head movement. This paper examines how Tag-Along window behavior influences perceived resistance and task load relative to a Head-Locked baseline, across multiple window configurations. Results indicate that Tag-Along behavior robustly increases perceived resistance and elevates NASA-TLX workload, suggesting a trade-off between visibility support and interaction comfort when designing AR window-following dynamics.",
+    "contributions": [
+      "Establish pseudo-resistance as a measurable perceptual effect induced by head-following (Tag-Along) AR windows, relative to a Head-Locked baseline.",
+      "Quantify the impact of window-following dynamics on subjective workload using NASA-TLX, highlighting consistent workload increases under Tag-Along behavior.",
+      "Derive practical design implications for AR window-following policies, clarifying when Tag-Along behavior may hinder comfort and productivity-oriented use."
+    ],
+    "results": [
+      "Tag-Along windows produce significantly higher perceived resistance than the Head-Locked baseline.",
+      "NASA-TLX workload is consistently higher under Tag-Along behavior across task conditions.",
+      "The adverse effects of Tag-Along behavior are amplified under certain window configurations, indicating an important design trade-off between persistence and comfort."
+    ]
+  },
+  {
+    "id": "p002",
+    "teaser": "images/teaser/p002.png",
+    "title": "Sign Language Vocabulary Recognition Only with Tactile Sensing Glove",
+    "authors": ["Motoki Kagami", "Zeping Yu", "Sim Teck Ceng", "Lei Jing"],
+    "venue": "IEEE MCSoC",
+    "year": 2024,
+    "pdf": null,
+    "doi": "https://doi.org/10.1109/MCSoC64144.2024.00029",
+    "bibtex": "@inproceedings{kagami2024signlanguage,\n  title={Sign Language Vocabulary Recognition Only with Tactile Sensing Glove},\n  author={Kagami, Motoki and Yu, Zeping and Ceng, Sim Teck and Jing, Lei},\n  booktitle={2024 IEEE 17th International Symposium on Embedded Multicore/Many-core Systems-on-Chip (MCSoC)},\n  pages={110--116},\n  address={Kuala Lumpur, Malaysia},\n  year={2024},\n  doi={10.1109/MCSoC64144.2024.00029}\n}",
+    "highlight": true,
+    "mini_abstract": "JSL finger-spelling recognition using a 46-sensor tactile glove achieves 87% accuracy with k-NN and Dynamic Time Warping.",
+    "abstract": "We present a tactile sensing glove with 46 force-sensitive Velostat sensors for Japanese Sign Language (JSL) vocabulary recognition. Using LSTM and k-NN with Dynamic Time Warping on 10 JSL finger-spelling signs collected from 5 participants, we achieve test accuracies of 76% and 87% respectively, demonstrating the potential of sensor-based SLR without reliance on vision-based approaches.",
+    "contributions": [
+      "Developed a low-cost, portable tactile glove with 46 Velostat pressure sensors strategically placed at finger joints and fingertips",
+      "Designed a preprocessing pipeline with baseline correction, moving average filtering, and Min-Max normalization for cross-subject generalization",
+      "Compared LSTM and k-NN with DTW on a 10-class JSL finger-spelling dataset using group 5-fold cross-validation"
+    ],
+    "results": [
+      "k-NN with Dynamic Time Warping achieved 87% average accuracy (Precision 0.88, Recall 0.87, F1 0.85)",
+      "LSTM achieved 76% test accuracy; dropout and L2 regularization were applied to reduce overfitting on the limited dataset"
+    ]
+  }
+]
