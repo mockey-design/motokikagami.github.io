@@ -35,6 +35,7 @@
     const href = link.getAttribute('href');
     if (href === currentPath || (currentPath === '' && href === 'index.html')) {
       link.classList.add('active');
+      link.setAttribute('aria-current', 'page');
     }
   });
 
@@ -43,10 +44,14 @@
   const navLinks = document.querySelector('.nav-links');
   if (menuBtn && navLinks) {
     menuBtn.addEventListener('click', () => {
-      navLinks.classList.toggle('open');
+      const open = navLinks.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', String(open));
     });
     navLinks.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', () => navLinks.classList.remove('open'));
+      a.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded', 'false');
+      });
     });
   }
 })();
@@ -79,6 +84,7 @@ function showToast(msg) {
   if (!toast) {
     toast = document.createElement('div');
     toast.className = 'toast';
+    toast.setAttribute('role', 'status');
     document.body.appendChild(toast);
   }
   toast.textContent = msg;
@@ -88,35 +94,45 @@ function showToast(msg) {
 
 // ---- BibTeX copy ----
 function copyBibtex(text) {
-  navigator.clipboard.writeText(text).then(() => showToast('BibTeX copied!'));
+  if (!navigator.clipboard) {
+    showToast('Please select and copy the displayed BibTeX.');
+    return;
+  }
+  navigator.clipboard.writeText(text)
+    .then(() => showToast('BibTeX copied!'))
+    .catch(() => showToast('Please select and copy the displayed BibTeX.'));
 }
 
 // ---- Modal ----
 let currentModal = null;
+let modalTrigger = null;
 
 function openModal(pub) {
   const overlay = document.getElementById('modal-overlay');
   const modal = document.getElementById('modal');
   if (!overlay || !modal) return;
 
+  modalTrigger = document.activeElement;
   modal.innerHTML = buildModalHTML(pub);
+  modal.querySelector('.modal-close').addEventListener('click', closeModal);
+  modal.querySelector('.modal-copy')?.addEventListener('click', () => copyBibtex(pub.bibtex));
+  modal.querySelector('.modal-toggle')?.addEventListener('click', event => toggleBibtex(event.currentTarget));
+  overlay.hidden = false;
   overlay.classList.add('open');
   document.body.style.overflow = 'hidden';
   currentModal = overlay;
 
-  // Trap focus
-  setTimeout(() => {
-    const closeBtn = modal.querySelector('.modal-close');
-    if (closeBtn) closeBtn.focus();
-  }, 50);
+  modal.querySelector('.modal-close').focus();
 }
 
 function closeModal() {
   const overlay = document.getElementById('modal-overlay');
   if (!overlay) return;
   overlay.classList.remove('open');
+  overlay.hidden = true;
   document.body.style.overflow = '';
   currentModal = null;
+  modalTrigger?.focus();
 }
 
 function buildModalHTML(pub) {
@@ -139,8 +155,8 @@ function buildModalHTML(pub) {
   const links = buildLinkButtons(pub, true);
   const bibtexSection = pub.bibtex
     ? `<p class="modal-section-label">BibTeX
-         <button class="bibtex-copy-btn" onclick="copyBibtex(${JSON.stringify(pub.bibtex)})">Copy</button>
-         <button class="bibtex-copy-btn" onclick="toggleBibtex(this)" style="margin-left:4px">Show</button>
+         <button class="bibtex-copy-btn modal-copy">Copy</button>
+         <button class="bibtex-copy-btn modal-toggle" aria-expanded="false" style="margin-left:4px">Show</button>
        </p>
        <pre class="bibtex-block" id="bibtex-${pub.id}">${escapeHtml(pub.bibtex)}</pre>`
     : '';
@@ -148,8 +164,8 @@ function buildModalHTML(pub) {
   return `
     <div class="modal-header">
       <p class="modal-venue">${pub.venue} · ${pub.year}</p>
-      <h2 class="modal-title">${pub.title}</h2>
-      <button class="modal-close" onclick="closeModal()" aria-label="Close">
+      <h2 class="modal-title" id="modal-title">${pub.title}</h2>
+      <button class="modal-close" aria-label="Close">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
           <path d="M2 2l12 12M14 2L2 14" stroke="currentColor" stroke-width="1.5"/>
         </svg>
@@ -158,8 +174,11 @@ function buildModalHTML(pub) {
     <div class="modal-body">
       <p class="modal-section-label">Authors</p>
       <p class="modal-abstract" style="font-style:italic">${authors}</p>
-      <p class="modal-section-label" style="margin-top:1rem">Abstract</p>
+      ${pub.citation_details ? `<p class="modal-abstract">${pub.citation_details}</p>` : ''}
+      ${pub.presentation ? `<p class="modal-abstract">${pub.presentation}</p>` : ''}
+      <p class="modal-section-label" style="margin-top:1rem">Research summary</p>
       <p class="modal-abstract">${pub.abstract}</p>
+      ${pub.my_role ? `<p class="modal-section-label">My role</p><p class="modal-abstract">${pub.my_role}</p>` : ''}
       ${contribs}
       ${results}
       ${bibtexSection}
@@ -173,38 +192,36 @@ function toggleBibtex(btn) {
   if (!block) return;
   block.classList.toggle('visible');
   btn.textContent = block.classList.contains('visible') ? 'Hide' : 'Show';
+  btn.setAttribute('aria-expanded', String(block.classList.contains('visible')));
 }
 
 function buildLinkButtons(pub, modal = false) {
   const cls = modal ? 'modal-link' : 'card-link';
-  let html = '';
-  if (pub.pdf && pub.pdf !== '#') {
-    html += `<a href="${pub.pdf}" target="_blank" class="${cls} primary">PDF</a>`;
-  } else if (pub.pdf === '#') {
-    html += `<span class="${cls} primary" style="opacity:0.5;cursor:default">PDF</span>`;
-  }
-  if (pub.doi) {
-    html += `<a href="${pub.doi}" target="_blank" class="${cls}">DOI</a>`;
-  }
-  if (pub.bibtex && !modal) {
-    html += `<button class="${cls}" onclick="handleBibtexCard(event,${JSON.stringify(pub.id)})">BibTeX</button>`;
-  }
-  return html;
-}
-
-function handleBibtexCard(e, pubId) {
-  e.stopPropagation();
-  const pub = window.PUBLICATIONS.find(p => p.id === pubId);
-  if (pub) copyBibtex(pub.bibtex);
+  return [['project', 'Project'], ['pdf', 'PDF'], ['doi', 'DOI'], ['video', 'Video']]
+    .filter(([field]) => pub[field] && pub[field] !== '#')
+    .map(([field, label]) => `<a href="${escapeHtml(pub[field])}" target="_blank" rel="noopener" class="${cls}">${label}</a>`)
+    .join('');
 }
 
 function escapeHtml(str) {
-  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 }
 
 // Keyboard close
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && currentModal) closeModal();
+  if (e.key === 'Tab' && currentModal) {
+    const elements = [...currentModal.querySelectorAll('button, a[href]')];
+    const first = elements[0];
+    const last = elements[elements.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  }
 });
 
 // Click outside

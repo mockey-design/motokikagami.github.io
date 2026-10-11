@@ -7,12 +7,13 @@
   <meta property="og:title" content="Publications — Motoki Kagami" />
   <meta property="og:type" content="website" />
   <meta name="description" content="Full list of publications by Motoki Kagami." />
+  <link rel="canonical" href="https://mockey-design.github.io/motokikagami.github.io/publications.html" />
   <link rel="icon" href="cow_icon.png" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
-<nav class="nav" role="navigation">
+<nav class="nav" role="navigation" aria-label="Main navigation">
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">
       <img src="cow_icon.png" alt="" class="nav-logo-icon" />
@@ -24,7 +25,7 @@
       <li><a href="cv.html">CV</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
-    <button class="nav-menu-btn" id="nav-menu-btn" aria-label="Toggle menu">
+    <button class="nav-menu-btn" id="nav-menu-btn" aria-label="Toggle menu" aria-controls="nav-links" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
   </div>
@@ -49,8 +50,8 @@
   </div>
 </main>
 
-<!-- Modal (for BibTeX inline display if needed) -->
-<div id="modal-overlay" class="modal-overlay" role="dialog" aria-modal="true">
+<!-- Publication details -->
+<div id="modal-overlay" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
   <div id="modal" class="modal"></div>
 </div>
 
@@ -63,23 +64,9 @@
   </div>
 </footer>
 
-<script>
-  const SITE_CONFIG = { name: "Motoki Kagami" };
-</script>
-<script>
-  fetch('data/publications.json')
-    .then(r => r.json())
-    .then(data => {
-      window.PUBLICATIONS = data;
-      document.dispatchEvent(new Event('publications-loaded'));
-    });
-</script>
+<script src="js/config.js"></script>
 <script src="js/main.js"></script>
 <script src="js/publications.js"></script>
-<script>
-  document.addEventListener('publications-loaded', () => {
-    renderPublications();
-  });
-</script>
+<script src="js/load-publications.js"></script>
 </body>
 </html>
