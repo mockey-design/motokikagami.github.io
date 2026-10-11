@@ -16,16 +16,16 @@ function renderPublications() {
         <div class="pub-meta">
           <h3 class="pub-title">${pub.title}</h3>
           <p class="pub-authors">${authors}</p>
-          <p class="pub-venue">${pub.venue} · ${pub.year}${pub.citation_details ? ' · ' + pub.citation_details : ''}</p>
+          <p class="pub-venue">${pub.venue} · ${pub.publication_date || pub.year}${pub.citation_details ? ' · ' + pub.citation_details : ''}</p>
           ${pub.presentation ? `<p class="pub-presentation">${pub.presentation}</p>` : ''}
-          <div class="pub-bibtex" hidden>
+          <div class="pub-bibtex" id="citation-${pub.id}" hidden>
             <pre class="bibtex-block visible">${escapeHtml(pub.bibtex)}</pre>
-            <button class="bibtex-copy-btn">Copy BibTeX</button>
+            <button class="bibtex-copy-btn" aria-label="Copy citation">Copy</button>
           </div>
         </div>
         <div class="pub-links">
-          ${buildLinkButtons(pub)}
-          <button class="card-link bibtex-toggle" aria-expanded="false">BibTeX</button>
+          ${buildPublicationLinks(pub)}
+          <button class="card-link bibtex-toggle" aria-controls="citation-${pub.id}" aria-expanded="false">BibTeX</button>
           <button class="card-link details-btn" aria-label="Details: ${escapeHtml(pub.title)}">Details →</button>
         </div>`;
       item.querySelector('.bibtex-toggle').addEventListener('click', event => {

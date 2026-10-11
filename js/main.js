@@ -152,7 +152,7 @@ function buildModalHTML(pub) {
          ${pub.results.map(r => `<li>${r}</li>`).join('')}
        </ul>` : '';
 
-  const links = buildLinkButtons(pub, true);
+  const links = buildPublicationLinks(pub, true);
   const bibtexSection = pub.bibtex
     ? `<p class="modal-section-label">BibTeX
          <button class="bibtex-copy-btn modal-copy">Copy</button>
@@ -163,7 +163,7 @@ function buildModalHTML(pub) {
 
   return `
     <div class="modal-header">
-      <p class="modal-venue">${pub.venue} · ${pub.year}</p>
+      <p class="modal-venue">${pub.venue} · ${pub.publication_date || pub.year}</p>
       <h2 class="modal-title" id="modal-title">${pub.title}</h2>
       <button class="modal-close" aria-label="Close">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -195,9 +195,10 @@ function toggleBibtex(btn) {
   btn.setAttribute('aria-expanded', String(block.classList.contains('visible')));
 }
 
-function buildLinkButtons(pub, modal = false) {
+// External resources only. Each renderer owns its single citation control.
+function buildPublicationLinks(pub, modal = false) {
   const cls = modal ? 'modal-link' : 'card-link';
-  return [['project', 'Project'], ['pdf', 'PDF'], ['doi', 'DOI'], ['video', 'Video']]
+  return [['project', 'Project page'], ['pdf', 'PDF'], ['doi', 'DOI'], ['video', 'Video']]
     .filter(([field]) => pub[field] && pub[field] !== '#')
     .map(([field, label]) => `<a href="${escapeHtml(pub[field])}" target="_blank" rel="noopener" class="${cls}">${label}</a>`)
     .join('');

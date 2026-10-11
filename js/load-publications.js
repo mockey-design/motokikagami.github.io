@@ -1,5 +1,5 @@
 // Load after the page renderer so cached responses cannot race its setup.
-fetch('data/publications.json?v=20261012')
+fetch('data/publications.json?v=214a514b04eb')
   .then(response => {
     if (!response.ok) throw new Error('Publication data unavailable');
     return response.json();

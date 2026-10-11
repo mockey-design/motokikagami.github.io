@@ -12,7 +12,7 @@ function renderHighlights() {
       <h3 class="card-title">${pub.title}</h3>
       <p class="card-abstract">${pub.mini_abstract}</p>
       <div class="card-links">
-        ${buildLinkButtons(pub)}
+        ${buildPublicationLinks(pub)}
         <button class="card-link details-btn" aria-label="Details: ${escapeHtml(pub.title)}">Details →</button>
       </div>`;
     card.querySelector('.details-btn').addEventListener('click', () => openModal(pub));
