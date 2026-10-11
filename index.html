@@ -19,8 +19,8 @@
     content="Research interests in evaluating 3D user interfaces and designing context-adaptive interaction in XR, considering user state and environment."
   />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://motokikagami.github.io/" />
-  <meta property="og:image" content="https://motokikagami.github.io/og.png" />
+  <meta property="og:url" content="https://mockey-design.github.io/motokikagami.github.io/" />
+  <meta property="og:image" content="https://mockey-design.github.io/motokikagami.github.io/portrait.jpg" />
   <meta property="og:site_name" content="Motoki Kagami" />
 
   <!-- Twitter -->
@@ -30,9 +30,10 @@
     name="twitter:description"
     content="3D user interface evaluation and context-adaptive interaction in XR."
   />
-  <meta name="twitter:image" content="https://motokikagami.github.io/og.png" />
+  <meta name="twitter:image" content="https://mockey-design.github.io/motokikagami.github.io/portrait.jpg" />
 
   <!-- Favicon -->
+  <link rel="canonical" href="https://mockey-design.github.io/motokikagami.github.io/" />
   <link rel="icon" href="cow_icon.png" />
 
   <link rel="stylesheet" href="css/style.css" />
@@ -188,12 +189,13 @@
       <li><a href="cv.html">CV</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
-    <button class="nav-menu-btn" id="nav-menu-btn" aria-label="Toggle menu" aria-expanded="false">
+    <button class="nav-menu-btn" id="nav-menu-btn" aria-label="Toggle menu" aria-controls="nav-links" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
   </div>
 </nav>
 
+<main>
 <!-- =============== HERO =============== -->
 <section class="hero" aria-label="Introduction">
   <div class="hero-bg" aria-hidden="true"></div>
@@ -204,14 +206,14 @@
       <div class="hero-text">
         <p class="hero-eyebrow fade-in">XR/HCI · 3D User Interfaces</p>
         <h1 class="hero-name fade-in">Motoki Kagami</h1>
-        <p class="hero-affil fade-in">Nara Institute of Science and Technology (NAIST) <br> PhD Student</p>
+        <p class="hero-affil fade-in">Nara Institute of Science and Technology (NAIST) <br> Ph.D. Student &amp; Research Assistant</p>
 
         <p class="hero-summary fade-in">
-          I’m a 1st-year Ph.D. student at NAIST’s Cybernetics & Reality Engineering Laboratory (CARE Lab), 
-          advised by Prof. Kiyoshi Kiyokawa, and a visiting scholar in Prof. Francisco R. Ortega’s Natural User Interaction (NUI) Lab at Colorado State University.<br>
-          I'm interested in evaluating 3D user interfaces and understanding what makes them effective in real use.
-          Recently, I've been focusing on context-adaptive 3D interaction in XR—interfaces that adjust to user state
-          and the surrounding environment to remain reliable, efficient, and comfortable across changing situations.
+          I am a Ph.D. student and research assistant in the Cybernetics and Reality Engineering (CARE) Lab at NAIST, advised by Prof. Kiyoshi Kiyokawa.
+          I study 3D user interfaces and adaptive interaction in VR/XR, with an interest in helping people select and manipulate information in spatial environments.
+        </p>
+        <p class="hero-summary fade-in">
+          I visited Prof. Francisco R. Ortega’s NUI Lab at Colorado State University from January to July 2026 and continue to collaborate with the team on viewpoint-assisted selection in VR.
         </p>
 
         <!-- CTA -->
@@ -275,57 +277,6 @@
   </div>
 </section>
 
-<!-- =============== EDUCATION =============== -->
-<section style="padding: 4rem 0 0;" aria-labelledby="education-title">
-  <div class="container">
-    <div class="section-header fade-in">
-      <span class="section-label">Background</span>
-      <h2 class="section-title" id="education-title">Education</h2>
-      <div class="section-divider" aria-hidden="true"></div>
-    </div>
-
-    <div class="edu-list fade-in">
-
-      <div class="edu-item">
-        <div class="edu-period">2026.4 —</div>
-        <div class="edu-body">
-          <p class="edu-degree">Ph.D. in Engineering</p>
-          <p class="edu-school">Nara Institute of Science and Technology (NAIST)</p>
-          <p class="edu-advisor">Supervisor: Prof. Kiyoshi Kiyokawa</p>
-        </div>
-      </div>
-
-  <div class="edu-item">
-    <div class="edu-period">2026.1 —</div>
-    <div class="edu-body">
-      <p class="edu-degree">Visiting Scholar</p>
-      <p class="edu-school">Colorado State University (CSU)</p>
-      <p class="edu-advisor">Host: Prof. Francisco R. Ortega</p>
-    </div>
-  </div>
-
-      <div class="edu-item">
-        <div class="edu-period">2024.4 — 2026.3</div>
-        <div class="edu-body">
-          <p class="edu-degree">M.S. in Engineering</p>
-          <p class="edu-school">Nara Institute of Science and Technology (NAIST)</p>
-          <p class="edu-advisor">Supervisor: Prof. Kiyoshi Kiyokawa</p>
-        </div>
-      </div>
-
-      <div class="edu-item">
-        <div class="edu-period">2020.4 — 2024.3</div>
-        <div class="edu-body">
-          <p class="edu-degree">B.S. in Computer Science</p>
-          <p class="edu-school">The University of Aizu (UoA)</p>
-          <p class="edu-advisor">Supervisor: Prof. Lei Jing</p>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
 <!-- =============== HIGHLIGHTS =============== -->
 <section class="highlights" aria-labelledby="highlights-title">
   <div class="container">
@@ -334,8 +285,8 @@
       <h2 class="section-title" id="highlights-title">Research Highlights</h2>
       <div class="section-divider" aria-hidden="true"></div>
     </div>
-    <div class="highlight-grid" id="highlights-grid" role="list">
-      <!-- Dynamically rendered by home.js -->
+    <div class="highlight-grid" id="highlights-grid">
+      <p class="loading-message">Loading research highlights…</p>
     </div>
     <div style="text-align:right;margin-top:2rem;" class="fade-in">
       <a href="publications.html" class="cta-link" style="font-size:0.75rem">
@@ -345,8 +296,171 @@
   </div>
 </section>
 
+<section class="background-section" aria-labelledby="ongoing-title">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-label">Ongoing research</span>
+      <h2 class="section-title" id="ongoing-title">Viewpoint-Assisted Selection in VR</h2>
+      <div class="section-divider" aria-hidden="true"></div>
+    </div>
+    <article class="ongoing-card fade-in">
+  <p class="research-status">In progress · Working title</p>
+  <h3>Multi-Crossing: Progressive Multi-Selection through Automated Viewpoint Recommendation in VR</h3>
+  <p>Selecting a target set in a dense 3D scene can require multiple viewpoints. This project combines automated viewpoint recommendation with progressive selection, helping users build a selection across views.</p>
+  <p><strong>Progress:</strong> Study 1 (18 participants) and Study 2 (24 participants) are complete and analyzed. A third study is planned to compare Lasso and Crossing selection with manual and automated viewpoints.</p>
+  <p><strong>My role:</strong> I lead the project and independently carry out the implementation, study design, data collection, analysis, and writing, in collaboration with Francisco R. Ortega (Colorado State University), Mayra Donaji Barrera Machuca (University of Calgary), and Robert J. Teather (Monash University).</p>
+</article>
+  </div>
+</section>
+
+<section class="background-section" aria-labelledby="education-title">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-label">Background</span>
+      <h2 class="section-title" id="education-title">Education</h2>
+      <div class="section-divider" aria-hidden="true"></div>
+    </div>
+    <div class="edu-list fade-in"><div class="edu-item">
+  <div class="edu-period">Apr 2026 – Present</div>
+  <div class="edu-body">
+    <h3 class="edu-degree">Ph.D. in Engineering — in progress</h3>
+    <p class="edu-school">Nara Institute of Science and Technology</p>
+    <p class="edu-advisor">Advisor: Prof. Kiyoshi Kiyokawa</p>
+  </div>
+</div>
+<div class="edu-item">
+  <div class="edu-period">Apr 2024 – Mar 2026</div>
+  <div class="edu-body">
+    <h3 class="edu-degree">M.S. in Engineering</h3>
+    <p class="edu-school">Nara Institute of Science and Technology</p>
+    <p class="edu-advisor">Advisor: Prof. Kiyoshi Kiyokawa</p>
+  </div>
+</div>
+<div class="edu-item">
+  <div class="edu-period">Apr 2020 – Mar 2024</div>
+  <div class="edu-body">
+    <h3 class="edu-degree">B.S. in Computer Science</h3>
+    <p class="edu-school">The University of Aizu</p>
+    <p class="edu-advisor">Advisor: Prof. Lei Jing</p>
+  </div>
+</div></div>
+  </div>
+</section>
+
+<section class="background-section" aria-labelledby="experience-title">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-label">Research</span>
+      <h2 class="section-title" id="experience-title">Research Experience</h2>
+      <div class="section-divider" aria-hidden="true"></div>
+    </div>
+    <div class="edu-list fade-in"><div class="edu-item">
+  <div class="edu-period">Apr 2026 – Present</div>
+  <div class="edu-body">
+    <h3 class="edu-degree">Research Assistant</h3>
+    <p class="edu-school">Nara Institute of Science and Technology · CARE Lab</p>
+    <p class="edu-advisor">VR/XR interaction research with Prof. Kiyoshi Kiyokawa.</p>
+  </div>
+</div>
+<div class="edu-item">
+  <div class="edu-period">Jan – Jul 2026</div>
+  <div class="edu-body">
+    <h3 class="edu-degree">Research Visit</h3>
+    <p class="edu-school">Colorado State University · NUI Lab</p>
+    <p class="edu-advisor">Hosted by Prof. Francisco R. Ortega. The on-site visit has concluded; research collaboration continues.</p>
+  </div>
+</div>
+<div class="edu-item">
+  <div class="edu-period">2023 – 2024</div>
+  <div class="edu-body">
+    <h3 class="edu-degree">Tactile Sensing Glove Research</h3>
+    <p class="edu-school">The University of Aizu</p>
+    <p class="edu-advisor">Built and evaluated a tactile glove for Japanese fingerspelling recognition. Responsible for device assembly, data collection, model implementation, analysis, and writing; PCB design and fabrication were performed by collaborators.</p>
+  </div>
+</div></div>
+  </div>
+</section>
+
+<section class="background-section" aria-labelledby="teaching-title">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-label">Teaching</span>
+      <h2 class="section-title" id="teaching-title">Research Mentoring</h2>
+      <div class="section-divider" aria-hidden="true"></div>
+    </div>
+    <div class="edu-list fade-in"><div class="edu-item">
+  <div class="edu-period">Apr 2025 · 4 days</div>
+  <div class="edu-body">
+    <h3 class="edu-degree">Teaching Assistant</h3>
+    <p class="edu-school">NAIST · Short-term research internship</p>
+    <p class="edu-advisor">Mentored one fourth-year undergraduate in Unity/C# implementation of cloth-based pseudo-haptics on a desktop display, using shader and cloth-motion adjustments. Guided the student through a working demonstration.</p>
+  </div>
+</div>
+<div class="edu-item">
+  <div class="edu-period">17–21 Feb 2025</div>
+  <div class="edu-body">
+    <h3 class="edu-degree">Teaching Assistant</h3>
+    <p class="edu-school">NAIST · Short-term research internship</p>
+    <p class="edu-advisor">Mentored one third-year undergraduate in Unity, Bambu Lab 3D printing, device assembly, and implementation of a PaCaPa-based impact-feedback prototype. Guided the student from the basics to a working demonstration.</p>
+  </div>
+</div></div>
+  </div>
+</section>
+
+<section class="background-section" aria-labelledby="support-title">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-label">Support</span>
+      <h2 class="section-title" id="support-title">Scholarships &amp; Research Support</h2>
+      <div class="section-divider" aria-hidden="true"></div>
+    </div>
+    <div class="edu-list fade-in"><div class="edu-item">
+  <div class="edu-period">Mar – Jul 2026</div>
+  <div class="edu-body">
+    <h3 class="edu-degree">JASSO Scholarship</h3>
+    <p class="edu-school">Student Exchange Support Program · Study abroad under agreement</p>
+    <p class="edu-advisor">Support for the CSU research visit: JPY 110,000 per month for five months (JPY 550,000 total).</p>
+  </div>
+</div>
+<div class="edu-item">
+  <div class="edu-period">2026</div>
+  <div class="edu-body">
+    <h3 class="edu-degree">Overseas Research Support</h3>
+    <p class="edu-school">NAIST · J-PEAKS</p>
+    <p class="edu-advisor">JPY 320,000 in support for the CSU research visit.</p>
+  </div>
+</div>
+<div class="edu-item">
+  <div class="edu-period">2024</div>
+  <div class="edu-body">
+    <h3 class="edu-degree">Kansai Tech Creator Challenge (K-TCC)</h3>
+    <p class="edu-school">Project support · JPY 550,000 received</p>
+    <p class="edu-advisor">Developed ChattyPlanter, a plant-mediated conversational prototype combining environmental sensors and GPT. Responsible for the concept, interaction design, implementation, and final presentation.</p>
+  </div>
+</div></div>
+  </div>
+</section>
+
+<section class="background-section" aria-labelledby="skills-title">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-label">Tools &amp; methods</span>
+      <h2 class="section-title" id="skills-title">Technical &amp; Research Skills</h2>
+      <div class="section-divider" aria-hidden="true"></div>
+    </div>
+    <dl class="skills-list fade-in">
+  <div><dt>Programming</dt><dd>Python, C#, R</dd></div>
+  <div><dt>Development</dt><dd>Unity</dd></div>
+  <div><dt>Data analysis</dt><dd>Statistical analysis of user-study data; data visualization</dd></div>
+  <div><dt>Libraries</dt><dd>NumPy, pandas, Matplotlib, scikit-learn, TensorFlow</dd></div>
+</dl>
+  </div>
+</section>
+
+</main>
+
 <!-- =============== MODAL =============== -->
-<div id="modal-overlay" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Publication details">
+<div id="modal-overlay" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
   <div id="modal" class="modal">
     <!-- Filled by JS -->
   </div>
@@ -367,39 +481,12 @@
 </footer>
 
 <!-- =============== SCRIPTS =============== -->
-<script>
-  const SITE_CONFIG = {
-    name: "Motoki Kagami",
-    affiliation: "Nara Institute of Science and Technology (NAIST)",
-    email: "kagami.motoki.ki3@naist.ac.jp",
-    scholar: "https://scholar.google.com/citations?user=yOV3dOUAAAAJ&hl=ja",
-    linkedin: "https://www.linkedin.com/in/motoki-kagami-630957177/",
-    twitter: "https://x.com/aizu_love_1901",
-    siteUrl: "https://motokikagami.github.io/",
-    ogImage: "https://motokikagami.github.io/og.png",
-  };
-</script>
-
-<script>
-  fetch('data/publications.json')
-    .then(r => r.json())
-    .then(data => {
-      window.PUBLICATIONS = data;
-      document.dispatchEvent(new Event('publications-loaded'));
-    })
-    .catch(() => {
-      document.dispatchEvent(new Event('publications-loaded'));
-    });
-</script>
+<script src="js/config.js"></script>
 
 <script src="js/main.js"></script>
 <script src="js/home.js"></script>
 
-<script>
-  document.addEventListener('publications-loaded', () => {
-    if (typeof renderHighlights === 'function') renderHighlights();
-  });
-</script>
+<script src="js/load-publications.js"></script>
 
 <!-- サイバーパンク hover エフェクト -->
 <script>
