@@ -1,102 +1,43 @@
-/* ===================================================
-   PUBLICATIONS PAGE RENDERER
-   =================================================== */
-
 function renderPublications() {
-  const pubs = window.PUBLICATIONS;
-  if (!pubs) return;
-
-  // Group by year (descending)
-  const byYear = {};
-  pubs.forEach(p => {
-    if (!byYear[p.year]) byYear[p.year] = [];
-    byYear[p.year].push(p);
-  });
-
-  const years = Object.keys(byYear).sort((a, b) => b - a);
   const container = document.getElementById('pub-list');
-  if (!container) return;
+  if (!container || !window.PUBLICATIONS) return;
+  container.innerHTML = '';
+  const years = [...new Set(window.PUBLICATIONS.map(pub => pub.year))].sort((a, b) => b - a);
 
-  let html = '';
   years.forEach(year => {
-    html += `<div class="year-group fade-in">
-      <p class="year-label">${year}</p>`;
-    byYear[year].forEach(pub => {
-      const authors = pub.authors.map(a =>
-        a === SITE_CONFIG.name ? `<strong>${a}</strong>` : a
-      ).join(', ');
-
-      let links = '';
-      if (pub.pdf) {
-        links += `<a href="${pub.pdf !== '#' ? pub.pdf : 'javascript:void(0)'}" 
-          ${pub.pdf !== '#' ? 'target="_blank"' : ''} 
-          class="card-link" 
-          ${pub.pdf === '#' ? 'style="opacity:0.5"' : ''}>PDF</a>`;
-      }
-      if (pub.doi) {
-        links += `<a href="${pub.doi}" target="_blank" class="card-link">DOI</a>`;
-      }
-      if (pub.bibtex) {
-        links += `<button class="card-link" 
-          onclick="togglePubBibtex(this, '${pub.id}')">BibTeX</button>`;
-      }
-
-      html += `
-        <div class="pub-item">
-          <div class="pub-meta">
-            <p class="pub-title">${pub.title}</p>
-            <p class="pub-authors">${authors}</p>
-            <p class="pub-venue">${pub.venue} &middot; ${pub.year}</p>
-            ${pub.bibtex ? `<pre class="bibtex-block" id="bibtex-${pub.id}">${escapeHtml(pub.bibtex)}</pre>` : ''}
+    const group = document.createElement('section');
+    group.className = 'year-group';
+    group.innerHTML = `<h2 class="year-label">${year}</h2>`;
+    window.PUBLICATIONS.filter(pub => pub.year === year).forEach(pub => {
+      const item = document.createElement('article');
+      item.className = 'pub-item';
+      const authors = pub.authors.map(author => author === SITE_CONFIG.name ? `<strong>${author}</strong>` : author).join(', ');
+      item.innerHTML = `
+        <div class="pub-meta">
+          <h3 class="pub-title">${pub.title}</h3>
+          <p class="pub-authors">${authors}</p>
+          <p class="pub-venue">${pub.venue} · ${pub.year}${pub.citation_details ? ' · ' + pub.citation_details : ''}</p>
+          ${pub.presentation ? `<p class="pub-presentation">${pub.presentation}</p>` : ''}
+          <div class="pub-bibtex" hidden>
+            <pre class="bibtex-block visible">${escapeHtml(pub.bibtex)}</pre>
+            <button class="bibtex-copy-btn">Copy BibTeX</button>
           </div>
-          <div class="pub-links">${links}</div>
+        </div>
+        <div class="pub-links">
+          ${buildLinkButtons(pub)}
+          <button class="card-link bibtex-toggle" aria-expanded="false">BibTeX</button>
+          <button class="card-link details-btn" aria-label="Details: ${escapeHtml(pub.title)}">Details →</button>
         </div>`;
-    });
-    html += `</div>`;
-  });
-
-  container.innerHTML = html;
-
-  // Re-run fade-in observer for newly created elements
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (!prefersReduced) {
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-          obs.unobserve(e.target);
-        }
+      item.querySelector('.bibtex-toggle').addEventListener('click', event => {
+        const block = item.querySelector('.pub-bibtex');
+        block.hidden = !block.hidden;
+        event.currentTarget.setAttribute('aria-expanded', String(!block.hidden));
+        event.currentTarget.textContent = block.hidden ? 'BibTeX' : 'Hide BibTeX';
       });
-    }, { threshold: 0.05 });
-    container.querySelectorAll('.fade-in').forEach((el, i) => {
-      el.style.transitionDelay = `${i * 0.06}s`;
-      obs.observe(el);
+      item.querySelector('.bibtex-copy-btn').addEventListener('click', () => copyBibtex(pub.bibtex));
+      item.querySelector('.details-btn').addEventListener('click', () => openModal(pub));
+      group.appendChild(item);
     });
-  } else {
-    container.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
-  }
+    container.appendChild(group);
+  });
 }
-
-function togglePubBibtex(btn, id) {
-  const block = document.getElementById(`bibtex-${id}`);
-  if (!block) return;
-  const visible = block.classList.toggle('visible');
-  btn.textContent = visible ? 'Hide BibTeX' : 'BibTeX';
-  if (visible) {
-    const pub = window.PUBLICATIONS.find(p => p.id === id);
-    if (pub) {
-      const copyBtn = document.createElement('button');
-      copyBtn.className = 'bibtex-copy-btn';
-      copyBtn.style.marginLeft = '8px';
-      copyBtn.textContent = 'Copy';
-      copyBtn.onclick = () => copyBibtex(pub.bibtex);
-      if (!block.nextElementSibling?.classList.contains('bibtex-copy-btn')) {
-        block.insertAdjacentElement('afterend', copyBtn);
-      }
-    }
-  }
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  renderPublications();
-});
